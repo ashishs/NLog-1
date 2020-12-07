@@ -392,5 +392,10 @@ namespace NLog
         {
             factory.Shutdown();
         }
+
+        /// <summary>
+        /// Exceptions to be rethrown
+        /// </summary>
+        public static IEnumerable<Type> RethrowExceptionsOfType { get; set; }
     }
 }

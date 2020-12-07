@@ -31,6 +31,8 @@
 // THE POSSIBILITY OF SUCH DAMAGE.
 // 
 
+using System.Linq;
+
 namespace NLog.Internal
 {
     using System;
@@ -85,6 +87,12 @@ namespace NLog.Internal
             if (exception.MustBeRethrownImmediately())
             {
                 //no further logging, because it can make severe exceptions only worse.
+                return true;
+            }
+
+            if (LogManager.ThrowExceptions && LogManager.RethrowExceptionsOfType != null &&
+                LogManager.RethrowExceptionsOfType.Any(i => exception.GetType().IsSubclassOf(i)))
+            {
                 return true;
             }
 
